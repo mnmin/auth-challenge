@@ -7,6 +7,7 @@ const apiUrl = 'http://localhost:4000';
 
 function App() {
   const [movies, setMovies] = useState([]);
+  //const [registeredUser, setRegisteredUser] = useState('')
 
   useEffect(() => {
     fetch(`${apiUrl}/movie`)
@@ -16,10 +17,46 @@ function App() {
 
   const handleRegister = async ({ username, password }) => {
     
+    await fetch(`${apiUrl}/user/register`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          username,
+          password
+      })
+    })
+    .then((res) => res.json())
+    .then(data => {
+      // actions after sucess or fail
+      console.log('register complete', data)
+    })
+    
   };
 
-  const handleLogin = async ({ username, password }) => {
+
+
+const handleLogin = async ({ username, password }) => {
     
+  await fetch(`${apiUrl}/user/login`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      username,
+      password
+    })
+  })
+  .then((res) => res.json())
+  .then(data => {
+    //actions after sucess or fail
+    console.log('login complete', data)
+    // save the token in loval storage so it can be used later
+    localStorage.setItem('token', data.token)
+ })
+
   };
   
   const handleCreateMovie = async ({ title, description, runtimeMins }) => {
