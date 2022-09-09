@@ -7,7 +7,6 @@ const apiUrl = 'http://localhost:4000';
 
 function App() {
   const [movies, setMovies] = useState([]);
-  const [createdMovie, setCreatedMovie] = useState('')
 
   useEffect(() => {
     fetch(`${apiUrl}/movie`)
@@ -84,8 +83,7 @@ const handleLogin = async ({ username, password }) => {
       console.log(data)
     
       setMovies([...movies, data.data])
-     })
-     
+     }) 
   }
 
   return (

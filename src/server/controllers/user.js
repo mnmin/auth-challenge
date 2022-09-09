@@ -11,9 +11,9 @@ const register = async (req, res) => {
     //if(username) throw new Error("Username already exists")
 
     
-    // if(username === username) {
-    //     res.status(401).json({error: "username already exists"})
-    // }
+    if(!username || !password) {
+        res.status(401).json({error: "invalid input"})
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10)
 

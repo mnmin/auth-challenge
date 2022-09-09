@@ -15,13 +15,13 @@ const createMovie = async (req, res) => {
 
     const [_, token] = req.get('Authorization').split(' ');
     
-        console.log('body', req.body)
+        //console.log('body', req.body)
         // console.log('title', title)
         // console.log('description', description)
         // console.log(runtimeMins)
         // console.log(_)
-        console.log('auth?', req.get('Authorization'))
-        console.log('token', token)
+        //console.log('auth?', req.get('Authorization'))
+        //console.log('token', token)
 
     try {
         // todo verify the token
