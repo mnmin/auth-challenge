@@ -7,7 +7,7 @@ const apiUrl = 'http://localhost:4000';
 
 function App() {
   const [movies, setMovies] = useState([]);
-  //const [registeredUser, setRegisteredUser] = useState('')
+  const [createdMovie, setCreatedMovie] = useState('')
 
   useEffect(() => {
     fetch(`${apiUrl}/movie`)
@@ -31,6 +31,7 @@ function App() {
     .then(data => {
       // actions after sucess or fail
       console.log('register complete', data)
+
     })
     
   };
@@ -52,15 +53,39 @@ const handleLogin = async ({ username, password }) => {
   .then((res) => res.json())
   .then(data => {
     //actions after sucess or fail
-    console.log('login complete', data)
+    //console.log('login complete', data)
     // save the token in loval storage so it can be used later
-    localStorage.setItem('token', data.token)
+    localStorage.setItem('token', data.data)
+    console.log('login completed', data)
  })
 
   };
   
   const handleCreateMovie = async ({ title, description, runtimeMins }) => {
     
+  const token = localStorage.getItem('token')
+  console.log("user token from local storage", token)
+
+   await fetch(`${apiUrl}/movie`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        runtimeMins
+      })
+    })
+    .then((res) => res.json())
+    .then(data => {
+      
+      console.log(data)
+    
+      setMovies([...movies, data.data])
+     })
+     
   }
 
   return (
